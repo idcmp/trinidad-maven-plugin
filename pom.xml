@@ -20,6 +20,12 @@
 
 	<description>Trinidad is a set of extensions and additional runners for the FitNesse acceptance test management tool.</description>
 
+	<scm>
+		<connection>scm:git:git@github.com:idcmp/trinidad-maven-plugin.git</connection>
+		<developerConnection>scm:git:git@github.com:idcmp/trinidad-maven-plugin.git</developerConnection>
+		<url>git@github.com:idcmp/trinidad-maven-plugin.git</url>
+	</scm>
+
 	<developers>
 		<developer>
 			<name>Gojko Adzic</name>
