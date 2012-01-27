@@ -1,0 +1,75 @@
+Required Dependencies
+
+
+  Since version 1.0.9, Trinidad is mostly merged with FitNesse with the Maven plugin and transactional wrappers
+  depending on the basic Trinidad classes in the FitNesse distribution.   
+  
+  In order to enable you to use any version of fitnesse, slim and fitlibrary, the maven plugin loads the 
+  the test dependency classpath first and then dependencies of the plugin.  You should include fitnesse, fitlibrary, any other
+  dependencies that fit tests might have and trinidad fitnesse runner in the dependency list.  Use this to copy/paste required 
+  dependencies into the pom.xml file:
+  
+----
+  ...
+ <properties>
+  .....
+	  <fitnesse.version>20090709</fitnesse.version>
+	  <fitlibrary.version>20081102</fitlibrary.version>
+	  <trinidad.version>1.0.9</trinidad.version>
+ </properties>
+ ...
+ <repositories>
+    <repository>
+		<id>neuri-maven</id>
+		<url>http://maven.neuri.com/</url>
+		<snapshots>
+			<enabled>true</enabled>
+		</snapshots>
+		<releases>
+			<enabled>true</enabled>
+		</releases>		
+    </repository>
+    ....
+ </repositories>	
+ <pluginRepositories>
+    <pluginRepository>
+		<id>neuri-maven</id>
+		<url>http://maven.neuri.com/</url>
+		<snapshots>
+			<enabled>true</enabled>
+		</snapshots>
+		<releases>
+			<enabled>true</enabled>
+		</releases>		
+    </pluginRepository>
+    ....
+ </pluginRepositories>	
+ 
+ ....
+ <dependencies>
+  ...
+    <dependency>
+  		<groupId>org.fitnesse</groupId>
+  		<artifactId>fitnesse</artifactId>
+		<version>${fitnesse.version}</version>
+		<type>jar</type>
+		<scope>provided</scope>
+  	</dependency>
+  	<dependency>
+  	<groupId>org.fitnesse</groupId>
+		<artifactId>fitlibrary</artifactId>
+		<version>${fitlibrary.version}</version>
+		<type>jar</type>
+		<scope>provided</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.neuri.tdd</groupId>
+		<artifactId>fitnesserunner</artifactId>
+		<version>${trinidad.version}</version>
+		<type>jar</type>
+		<scope>test</scope>
+  	</dependency>
+  </dependencies>
+   
+---- 
+ 

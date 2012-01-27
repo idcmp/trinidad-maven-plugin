@@ -1,0 +1,63 @@
+Examples
+
+  in order to enable you to use any version of fitnesse, slim and fitlibrary, the maven plugin loads everything from 
+  the dependency classpath, no dependencies come with the plugin itself).  You'll need to include fitnesse, fitlibrary, any other
+  dependencies that fit tests might have and trinidad fitnesse runner in the dependency list. See 
+  {{{required-dependencies.html}Required dependencies}} for more information
+ 
+Executing from the command line
+
+  To execute trinidad from the command line, use the trinidad:run-tests goal. Here's an example 
+  that runs JavaExamples.CommonExamples suite, using the Fit test engine and loading tests from src/test/resources
+ 
+----------------------------------------
+ mvn trinidad:run-tests -Dtrinidad.engine=fit -Dtrinidad.test.type=fitnesse \
+  -Dtrinidad.test.location=src/test/resources \
+  -Dtrinidad.run.suite=JavaExamples.CommonExamples 
+----------------------------------------
+
+Executing from the build file
+
+  To execute trinidad as part of a maven build, bind the plugin to an execution phase. In this 
+  example, we execute tests as part of the test phase, break build if any of the tests fail, and
+  execute two suites from a fitnesse repository in the src/main/fitnesse folder. 
+   
+  Don't forget to add the breakBuildOnFailure argument if you want fitnesse test failures to break
+  your build.
+  
+----------------------------------------  
+<project>
+ ...
+ <build>
+  ...
+  <plugins> 
+   ...
+ 	<plugins>
+	      <plugin>
+				<artifactId>maven-trinidad-plugin</artifactId>
+				<version>1.0.2</version>
+				<executions>
+					<execution>
+						<phase>test</phase>
+						<goals>
+							<goal>run-tests</goal>
+						</goals>
+					<configuration>
+						<testEngine>fit</testEngine>
+						<testRepositoryType>fitnesse</testRepositoryType>
+						<testRepositoryUri>${basedir}/src/main/fitnesse</testRepositoryUri>
+						<suites>
+						<suite>AcceptanceTests.JavaTests.MySqlTests.FlowMode</suite>
+						<suite>AcceptanceTests.JavaTests.MySqlTests.StandaloneFixtures</suite>						
+						</suites>
+					</configuration>
+				</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>	
+   
+   
+----------------------------------------  
+   
+ 

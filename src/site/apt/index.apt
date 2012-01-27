@@ -1,0 +1,4 @@
+Trinidad Maven Test Runner
+
+  Trinidad Maven Plugin allows you to run FitNesse tests in-process as part of your maven build, automatically
+  loading classes from the test resources and dependencies and generating HTML reports.

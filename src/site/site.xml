@@ -1,0 +1,18 @@
+<project name="Maven Trinidad Plugin">
+  <bannerLeft>
+    <name>Neuri</name>
+    <src>http://neuri.com/images/logo.png</src>
+    <href>http://www.neuri.com</href>
+  </bannerLeft>
+  <body>
+    <menu name="Project Information">
+      <item name="License" href="license.html"/>    
+   	  <item name="Project Summary" href="project-summary.html" />
+    </menu>
+    <menu name="Usage">
+      <item name="Plugin Parameters" href="run-tests-mojo.html"/>
+      <item name="Examples" href="examples.html"/>      
+      <item name="Required dependencies" href="required-dependencies.html"/>           
+    </menu>
+  </body>
+</project>
