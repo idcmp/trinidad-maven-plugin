@@ -1,0 +1,11 @@
+Hello!
+
+This is a forked copy of the maven-trinidad-plugin originally
+maintained by Gojko.  It's forked as of the 20110303 version.
+
+It has been repackaged so I can deploy it to oss.sonatype.org and have
+it mirrored to central.  It is still licensed under GPL (but as it
+communicates with Maven through the Maven Plugin APIs, GPL's viral
+nature stops there).
+
+  JAmes
