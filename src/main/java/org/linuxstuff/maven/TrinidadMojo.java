@@ -100,7 +100,27 @@ public class TrinidadMojo extends AbstractMojo {
 	 * @parameter default-value="" expression="${trinidad.listener}"
 	 */
 	private String listenerClass;
-
+	
+	/**
+	 * @parameter default-value="" expression="${trinidad.suite.filter}"
+	 * @see #getSuiteFilter()
+	 */
+	private String suiteFilter;
+	
+	/**
+	 * @parameter default-value="" expression="${trinidad.exclude.filter}"
+	 * @see #getExcludeFilter()
+	 */
+	private String excludeFilter;
+	
+	/**
+	 * Constructor.
+	 */
+	public TrinidadMojo() {
+		suiteFilter = null;
+		excludeFilter = null;
+	}
+	
 	void setTestRepositoryUri(String testRepositoryUri) {
 		this.testRepositoryUri = testRepositoryUri;
 	}
@@ -115,6 +135,30 @@ public class TrinidadMojo extends AbstractMojo {
 
 	void setSingleTest(String singleTest) {
 		this.singleTest = singleTest;
+	}
+	
+	/**
+	 * @return A list of suite names separated by commas. Tests with the same suite names will be run (unless excluded).
+	 * Special case: An empty String will match all tests.
+	 */
+	private String getSuiteFilter() {
+		if (suiteFilter == null || suiteFilter.trim().isEmpty()) {
+			return null;
+		} else {
+			return suiteFilter;
+		}
+	}
+
+	/**
+	 * @return A list of suite names separated by commas. Tests with the same suite names will not be run.
+	 * Special case: An empty String will match no tests.
+	 */
+	private String getExcludeFilter() {
+		if (excludeFilter == null || excludeFilter.trim().isEmpty()) {
+			return null;
+		} else {
+			return excludeFilter;
+		}
 	}
 
 	public void execute() throws MojoExecutionException {
@@ -156,14 +200,15 @@ public class TrinidadMojo extends AbstractMojo {
 			output.mkdirs();
 	}
 
-	private void runSuites(Object testRunnerInstance) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
-			NoSuchFieldException, MojoExecutionException {
-		Method runSuite = testRunnerInstance.getClass().getMethod("runSuite", String.class);
+	private void runSuites(Object testRunnerInstance)
+		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, NoSuchFieldException, MojoExecutionException {
+		Method runSuite = testRunnerInstance.getClass().getMethod("run", String.class, String.class, String.class, String.class, int.class);
 		for (String suite : suites) {
 			if (stopAfterFirstFailure && totalWrongOrException > 0)
 				break;
-			getLog().info("running suite=" + suite);
-			Object counts = runSuite.invoke(testRunnerInstance, suite);
+			Object counts;
+			getLog().info("running suite=" + suite + ", suiteFilter=" + getSuiteFilter() + ", excludeFilter=" + getExcludeFilter());
+			counts = runSuite.invoke(testRunnerInstance, suite, TestHelper.PAGE_TYPE_SUITE, getSuiteFilter(), getExcludeFilter(), 0);
 			int wrongOrException = getWrongPlusExceptions(counts);
 			totalWrongOrException += wrongOrException;
 		}
