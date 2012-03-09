@@ -9,3 +9,7 @@ communicates with Maven through the Maven Plugin APIs, GPL's viral
 nature stops there).
 
   JAmes
+--------------
+20120309 version:
+- add in ability to exclude and include suites for run-tests
+- add in @threadSafe 
