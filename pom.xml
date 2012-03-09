@@ -9,7 +9,7 @@
 	</parent>
 
 	<!-- This is 20110303 repackaged. -->
-	<version>20120309</version>
+	<version>20120310-SNAPSHOT</version>
 	<groupId>org.linuxstuff.maven</groupId>
 	<artifactId>trinidad-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
