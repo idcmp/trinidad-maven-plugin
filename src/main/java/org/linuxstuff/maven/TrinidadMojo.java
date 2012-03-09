@@ -18,6 +18,7 @@ import fitnesse.responders.run.ResultsListener;
  * @goal run-tests
  * @phase integration-test
  * @requiresDependencyResolution test
+ * @threadSafe true
  */
 public class TrinidadMojo extends AbstractMojo {
 	/**
